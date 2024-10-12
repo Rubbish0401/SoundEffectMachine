@@ -1,0 +1,77 @@
+/* Global */
+*{
+	font-family: "Noto Sans JP", "Open Sans";
+	color: #C8C8C8;
+}
+
+body{
+	background: #13141A;
+}
+
+a{
+	color: #303234;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+/* Screen */
+
+/* Player Controller */
+
+.player-button{
+	border-radius: 32px;
+}
+
+.player-button:hover{
+	background: #FFFFFF10;
+}
+
+#repeat-icon{
+	opacity: 0.5;
+}
+
+#repeat-icon.enabled{
+	opacity: 1;
+}
+
+/* Profile Controller */
+.profile-controller .profile-label{
+	text-align: center;
+	vertical-align: middle;
+}
+
+.profile-controller .profile-shift{
+	border-radius: 32px;
+}
+
+.profile-controller .profile-shift:hover{
+	background: #FFFFFF10;
+}
+
+
+/* SE Buttons or List */
+
+.se-item{
+	border-radius: 16px;
+	background: #FFFFFF10;
+
+	user-select: none;
+
+	transition: scale 0.5s, width 0.3s;
+}
+
+.se-item:hover, .se-item.selected{
+	background: #FFFFFF20;
+}
+
+.se-list .se-item{
+	scale: 1;
+}
+
+.se-list .se-item.pop{
+	scale: 0;
+}

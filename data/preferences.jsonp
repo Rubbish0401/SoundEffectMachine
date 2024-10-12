@@ -1,0 +1,9 @@
+window.addEventListener("load", function(){
+	build({
+		"view": "buttons",
+		
+		"initial": 0,
+		"profiles": [
+		]
+	});
+});

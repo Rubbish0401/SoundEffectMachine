@@ -1,0 +1,51 @@
+<html>
+
+<head>
+	<!-- Viewport and Charset -->
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+	<meta charset="utf-8" />
+
+	<!-- External Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Serif+JP:wght@200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+		rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="styles/machine-structure.css">
+	<link rel="stylesheet" href="styles/machine-face.css">
+
+	<!-- Scripts -->
+	<script src="scripts/machine.js"></script>
+	<script src="data/preferences.jsonp"></script>
+
+	<!-- Others-->
+	<link rel="icon" href="src/images/svg/piano.svg">
+	<title>
+		Sound Effect Machine
+	</title>
+</head>
+
+<body>
+	<div id="screen" class="screen bottom-controller">
+		<div class="row player-controller">
+			<img id="repeat-icon" class="player-button" src="src/images/svg/repeat.svg">
+
+			<img id="volume-icon" class="player-button" src="src/images/svg/volume_up.svg">
+			<span id="volume" class="player-volume">50</span>
+			<input id="volume-slider" class="player-volume-slider" type="range" min="1" max="100" step="1" value="50">
+		</div>
+
+		<div class="row profile-controller">
+			<img id="profile-prev" class="profile-shift" src="src/images/svg/arrow_left.svg">
+			<span id="profile-label" class="profile-label"></span>
+			<img id="profile-next" class="profile-shift" src="src/images/svg/arrow_right.svg">
+			<img id="list-mode" class="player-button" src="">
+		</div>
+
+		<div id="se-list" class="row se-list"></div>
+	</div>
+</body>
+
+</html>
