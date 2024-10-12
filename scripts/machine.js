@@ -31,53 +31,55 @@ var volumeView;
 var temp;
 
 //
-function wait(duration){
-	return new Promise(function(resolve){
+function wait(duration) {
+	return new Promise(function (resolve) {
 		setTimeout(() => resolve(), duration);
 	});
 }
 
 //
 function build(pref) {
-	preferences = pref;
-	profiles = [];
-	for(let i = 0; i < preferences["profiles"].length; i++){
-		let script = document.createElement("script");
-		script.src = `data/profiles/${preferences["profiles"][i]}/profile.jsonp`;
+	window.addEventListener("load", function (event) {
+		preferences = pref;
+		profiles = [];
+		for (let i = 0; i < preferences["profiles"].length; i++) {
+			let script = document.createElement("script");
+			script.src = `data/profiles/${preferences["profiles"][i]}/profile.jsonp`;
 
-		document.body.appendChild(script);
-	}
+			document.body.appendChild(script);
+		}
 
-	soundList.classList.add(pref["view"]);
-	currentProfile = pref["initial"];
+		soundList.classList.add(pref["view"]);
+		currentProfile = pref["initial"];
 
-	setTimeout(async () => { await setProfile(currentProfile) }, 500);
+		setTimeout(async () => { await setProfile(currentProfile) }, 500);
+	});
 }
 
 function loadProfile(profile) {
 	profiles.push(profile);
 }
 
-async function setProfile(position){
-	if(temp) return -1;
+async function setProfile(position) {
+	if (temp) return -1;
 	temp = true;
 
 	currentProfile = preferences["profiles"].length > 0 ? ((position % preferences["profiles"].length) + preferences["profiles"].length) % preferences["profiles"].length : 0;
-	
+
 	player.pause();
 	player.src = "";
 
-	while(soundList.children.length > 0) soundList.children[0].remove();
+	while (soundList.children.length > 0) soundList.children[0].remove();
 
-	if(profiles.length > 0){
+	if (profiles.length > 0) {
 		profileLabel.innerText = profiles[currentProfile]["name"];
 		profileLabel.title = profiles[currentProfile]["name"];
-		for(let i = 0; i < profiles[currentProfile]["sounds"].length; i++){
+		for (let i = 0; i < profiles[currentProfile]["sounds"].length; i++) {
 			soundList.appendChild(createItem(profiles[currentProfile]["sounds"][i]));
 			await wait(50);
 		}
 	}
-	
+
 	temp = false;
 	return currentProfile;
 }
@@ -100,7 +102,7 @@ function createItem(item) {
 	});
 
 	icon.src = item["icon"] && item["icon"].length > 0 ? `${profileDir}/icons/${item["icon"]}` : "src/images/svg/music_note.svg";
-	label.innerText = item["name"];
+	if (item["name"] && item["name"].length > 0) label.innerText = item["name"];
 
 	container.appendChild(icon);
 	container.appendChild(label);
@@ -141,31 +143,31 @@ document.addEventListener("DOMContentLoaded", function (root_event) {
 	});
 
 	modeBtn.src = ["src/images/svg/grid.svg", "src/images/svg/list.svg"][Number(!soundList.classList.contains("buttons"))];
-	modeBtn.addEventListener("click", function(event){
+	modeBtn.addEventListener("click", function (event) {
 		let bool = soundList.classList.contains("buttons");
 
 		soundList.classList.remove(bool ? "buttons" : "list");
 		soundList.classList.add(!bool ? "buttons" : "list");
-		
+
 		modeBtn.src = ["src/images/svg/grid.svg", "src/images/svg/list.svg"][Number(!bool)];
 	});
 
-	if(player.loop) repeatBtn.classList.add("enabled");
+	if (player.loop) repeatBtn.classList.add("enabled");
 	else repeatBtn.classList.remove("enabled");
-	repeatBtn.addEventListener("click", function(event){
+	repeatBtn.addEventListener("click", function (event) {
 		player.loop = !player.loop;
 		player.src = "";
 
-		if(player.loop) repeatBtn.classList.add("enabled");
-	else repeatBtn.classList.remove("enabled");
+		if (player.loop) repeatBtn.classList.add("enabled");
+		else repeatBtn.classList.remove("enabled");
 	});
 
-	volumeBtn.addEventListener("click", function(event){
+	volumeBtn.addEventListener("click", function (event) {
 		player.muted = !player.muted;
 		volumeBtn.src = volumeIcons[Number(!player.muted) * (1 + Math.floor((Number(volumeInput.value) - 1) / 33))];
 	});
 
-	volumeInput.addEventListener("input", function(event){
+	volumeInput.addEventListener("input", function (event) {
 		let value = Number(event.target.value);
 
 		volumeBtn.src = volumeIcons[Number(!player.muted) * (1 + Math.floor((value - 1) / 33))];
@@ -173,9 +175,9 @@ document.addEventListener("DOMContentLoaded", function (root_event) {
 		player.volume = value / 100;
 	});
 
-	document.addEventListener("keydown", function(event){
-		if(event.key == " "){
-			if(player.paused) player.play();
+	document.addEventListener("keydown", function (event) {
+		if (event.key == " ") {
+			if (player.paused) player.play();
 			else player.pause();
 		}
 	});

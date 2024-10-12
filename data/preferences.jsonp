@@ -1,9 +1,7 @@
-window.addEventListener("load", function(){
-	build({
-		"view": "buttons",
-		
-		"initial": 0,
-		"profiles": [
-		]
-	});
+build({
+	"view": "grid",
+
+	"initial": 0,
+	"profiles": [
+	]
 });
