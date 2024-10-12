@@ -86,6 +86,7 @@ async function setProfile(position) {
 
 function createItem(item) {
 	let profileDir = `data/profiles/${preferences["profiles"][currentProfile]}`;
+	let filename = item["path"].split("/").pop();
 
 	let container = document.createElement("div");
 	let icon = document.createElement("img");
@@ -95,14 +96,14 @@ function createItem(item) {
 	icon.classList.add("se-item-icon");
 	label.classList.add("se-item-label");
 
-	container.title = item["name"] || item["path"];
+	container.title = item["name"] || filename;
 	container.addEventListener("click", function (event) {
 		player.src = `${profileDir}/sounds/${item["path"]}`;
 		player.play();
 	});
 
 	icon.src = item["icon"] && item["icon"].length > 0 ? `${profileDir}/icons/${item["icon"]}` : "src/images/svg/music_note.svg";
-	if (item["name"] && item["name"].length > 0) label.innerText = item["name"];
+	label.innerText = item["name"] || filename;
 
 	container.appendChild(icon);
 	container.appendChild(label);
