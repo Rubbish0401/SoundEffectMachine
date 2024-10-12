@@ -62,8 +62,8 @@ async function setProfile(position){
 	if(temp) return -1;
 	temp = true;
 
-	currentProfile = ((position % preferences["profiles"].length) + preferences["profiles"].length) % preferences["profiles"].length;
-
+	currentProfile = preferences["profiles"].length > 0 ? ((position % preferences["profiles"].length) + preferences["profiles"].length) % preferences["profiles"].length : 0;
+	
 	player.pause();
 	player.src = "";
 
@@ -93,13 +93,13 @@ function createItem(item) {
 	icon.classList.add("se-item-icon");
 	label.classList.add("se-item-label");
 
-	container.title = item["name"];
+	container.title = item["name"] || item["path"];
 	container.addEventListener("click", function (event) {
 		player.src = `${profileDir}/sounds/${item["path"]}`;
 		player.play();
 	});
 
-	icon.src = item["icon"].length > 0 ? `${profileDir}/icons/${item["icon"]}` : "src/images/svg/music_note.svg";
+	icon.src = item["icon"] && item["icon"].length > 0 ? `${profileDir}/icons/${item["icon"]}` : "src/images/svg/music_note.svg";
 	label.innerText = item["name"];
 
 	container.appendChild(icon);
